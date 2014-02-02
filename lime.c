@@ -64,7 +64,7 @@ zend_module_entry lime_module_entry = {
 };
 /* }}} */
 
-#ifdef COMPILE_DL_lime
+#ifdef COMPILE_DL_LIME
 ZEND_GET_MODULE(lime)
 #endif
 
