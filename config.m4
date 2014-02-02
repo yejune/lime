@@ -7,9 +7,9 @@ dnl without editing.
 
 dnl If your extension references something external, use with:
 
-dnl PHP_ARG_WITH(lime, for lime support,
+PHP_ARG_WITH(lime, for lime support,
 dnl Make sure that the comment is aligned:
-dnl [  --with-lime             Include lime support])
+[  --with-lime             Include lime support])
 
 dnl Otherwise use enable:
 
