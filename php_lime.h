@@ -44,7 +44,7 @@ PHP_RINIT_FUNCTION(lime);
 PHP_RSHUTDOWN_FUNCTION(lime);
 PHP_MINFO_FUNCTION(lime);
 
-PHP_FUNCTION(confirm_lime_compiled);	/* For testing, remove later. */
+PHP_FUNCTION(pr);	/* For testing, remove later. */
 
 /* 
   	Declare any global variables you may need between the BEGIN

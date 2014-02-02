@@ -39,7 +39,7 @@ static int le_lime;
  * Every user visible function must have an entry in lime_functions[].
  */
 const zend_function_entry lime_functions[] = {
-	PHP_FE(confirm_lime_compiled,	NULL)		/* For testing, remove later. */
+	PHP_FE(pr,	NULL)		/* For testing, remove later. */
 	PHP_FE_END	/* Must be the last line in lime_functions[] */
 };
 /* }}} */
@@ -64,7 +64,7 @@ zend_module_entry lime_module_entry = {
 };
 /* }}} */
 
-#ifdef COMPILE_DL_LIME
+#ifdef COMPILE_DL_lime
 ZEND_GET_MODULE(lime)
 #endif
 
@@ -144,32 +144,40 @@ PHP_MINFO_FUNCTION(lime)
 /* }}} */
 
 
-/* Remove the following function when you have successfully modified config.m4
-   so that your module can be compiled into PHP, it exists only for testing
-   purposes. */
 
-/* Every user-visible function in PHP should document itself in the source */
-/* {{{ proto string confirm_lime_compiled(string arg)
-   Return a string to confirm that the module is compiled in */
-PHP_FUNCTION(confirm_lime_compiled)
+PHP_FUNCTION(pr) 
 {
-	char *arg = NULL;
-	int arg_len, len;
-	char *strg;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &arg, &arg_len) == FAILURE) {
-		return;
+	zval *var;
+	zend_bool do_return = 0;
+
+	const char *file="";
+	int line=0;
+	int l;
+	char *tmp = NULL;
+
+	l = spprintf(&tmp, 0, "pr trace : %s on line %d", 
+		zend_get_executed_filename(TSRMLS_C), 
+		zend_get_executed_lineno(TSRMLS_C)
+	);
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "z|b", &var, &do_return) == FAILURE) {
+		RETURN_FALSE;
 	}
 
-	len = spprintf(&strg, 0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now compiled into PHP.", "lime", arg);
-	RETURN_STRINGL(strg, len, 0);
+
+	PUTS("\n<pre>");
+	PUTS("\n----------------------------------------------------------------------");
+	PUTS("\n");
+	PUTS(tmp);
+	PUTS("\n----------------------------------------------------------------------");
+	PUTS("\n");
+	zend_print_zval_r(var, 0 TSRMLS_CC);
+
+	PUTS("</pre>\n");
+		RETURN_TRUE;
 }
-/* }}} */
-/* The previous line is meant for vim and emacs, so it can correctly fold and 
-   unfold functions in source code. See the corresponding marks just before 
-   function definition, where the functions purpose is also documented. Please 
-   follow this convention for the convenience of others editing your code.
-*/
+
 
 
 /*
