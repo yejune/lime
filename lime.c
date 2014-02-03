@@ -147,7 +147,6 @@ PHP_MINFO_FUNCTION(lime)
 
 PHP_FUNCTION(pr) 
 {
-
 	zval *var;
 	zend_bool do_return = 0;
 
@@ -165,7 +164,6 @@ PHP_FUNCTION(pr)
 		RETURN_FALSE;
 	}
 
-
 	PUTS("\n<pre>");
 	PUTS("\n----------------------------------------------------------------------");
 	PUTS("\n");
@@ -175,7 +173,7 @@ PHP_FUNCTION(pr)
 	zend_print_zval_r(var, 0 TSRMLS_CC);
 
 	PUTS("</pre>\n");
-		RETURN_TRUE;
+	RETURN_TRUE;
 }
 
 
